@@ -65,7 +65,7 @@ impl TSP for Distances {
             .permutations(self.len() - 1)
             .collect::<Vec<Vec<usize>>>();
 
-        let mut best_solution: (u64, Vec<usize>) = (0, vec![]);
+        let mut best_solution: (u64, Vec<usize>) = (u64::MAX, vec![]);
 
         while temp > 0.0 {
             let perm = random_range(..solutions.len());
@@ -85,9 +85,9 @@ impl TSP for Distances {
                 cost + self[node][0]
             };
 
-            // If solution is the first one or the best one yet
+            // If solution is the best one yet
             // overwrite "best_solution" with the current one
-            if best_solution.1.is_empty() || best_solution.0 > cost {
+            if best_solution.0 > cost {
                 // WARNING Hotloop clone here fix this
                 best_solution = (cost, solution.clone());
             }
